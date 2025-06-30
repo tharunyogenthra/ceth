@@ -1,0 +1,4 @@
+services:
+  ceth:
+    build: .
+    container_name: ceth-containers
