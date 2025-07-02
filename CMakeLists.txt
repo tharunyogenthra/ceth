@@ -4,7 +4,6 @@ project(CethApp)
 set(CMAKE_CXX_STANDARD 17)
 
 include_directories(${CMAKE_SOURCE_DIR}/websocketpp)
-include_directories(/usr/include)
 
 add_executable(app src/main.cpp)
 
