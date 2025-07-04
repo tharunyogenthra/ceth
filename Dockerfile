@@ -1,19 +1,23 @@
-# Version for now doesnt matter
 FROM ubuntu:22.04
 
-# This sets the working directory inside the container to /app
-WORKDIR /app
+ENV DEBIAN_FRONTEND=noninteractive
 
-# This needs to change a lot wwhen we getting libraries
 RUN apt-get update && apt-get install -y \
     g++ \
     cmake \
-    make
+    git \
+    libssl-dev \
+    libboost-all-dev \
+    && rm -rf /var/lib/apt/lists/*
+
+# removes cache
+WORKDIR /app
+
+RUN git clone https://github.com/zaphoyd/websocketpp.git /app/websocketpp
 
 COPY . .
 
-RUN mkdir build && cd build && cmake .. && make
+RUN cmake -S . -B build && cmake --build build
 
-WORKDIR /app/build
+CMD ["./build/app"]
 
-CMD ["./app"]
